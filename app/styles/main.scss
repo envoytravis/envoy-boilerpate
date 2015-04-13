@@ -1,0 +1,8 @@
+.test {
+    color: blue;
+
+    .test__child {
+        color: red;
+        transform: translateX(100%);
+    }
+}

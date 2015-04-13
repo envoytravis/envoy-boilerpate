@@ -1,0 +1,19 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}ENVOY{% endblock %}</title>
+        {% block head %}
+        <link rel="stylesheet" href="styles/main.css">
+        {% endblock %}
+    </head>
+    <body id="{% block page-id %}envoy{% endblock %}">
+        {% include '_header.html' %}
+        {% block content %}
+        {% endblock %}
+        {% include '_footer.html' %}
+        {% block foot %}
+        <script src="/scripts/main.js" type="text/javascript" async></script>
+        {% endblock %}
+    </body>
+</html>

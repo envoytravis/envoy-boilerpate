@@ -15,5 +15,18 @@
   "bugs": {
     "url": "https://github.com/envoytravis/envoy-boilerpate/issues"
   },
-  "homepage": "https://github.com/envoytravis/envoy-boilerpate"
+  "homepage": "https://github.com/envoytravis/envoy-boilerpate",
+  "devDependencies": {
+    "autoprefixer-core": "^5.1.9",
+    "browser-sync": "^2.6.1",
+    "gulp": "^3.8.11",
+    "gulp-csso": "^1.0.0",
+    "gulp-postcss": "^5.1.0",
+    "gulp-sass": "^1.3.3",
+    "gulp-sourcemaps": "^1.5.1",
+    "gulp-swig": "^0.7.4",
+    "gulp-webpack": "^1.3.2",
+    "velocity-animate": "^1.2.2",
+    "webpack": "^1.8.4"
+  }
 }

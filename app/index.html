@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block title %}My Page{% endblock %}
+{% block page-id %}My Page{% endblock %}
+
+{% block content %}
+    {% include '_list.html' {
+        people: [
+            {
+                name: 'john'
+            }
+        ]
+    }%}
+{% endblock %}

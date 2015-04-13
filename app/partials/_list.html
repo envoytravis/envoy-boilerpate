@@ -1,0 +1,5 @@
+{% for person in people %}
+    {% if loop.first %}<ol>{% endif %}
+        <li>{{ person.name }}</li>
+    {% if loop.last %}</ol>{% endif %}
+{% endfor %}
