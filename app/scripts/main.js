@@ -1,3 +1,3 @@
-//console.log(Velocity);
-//
-alert();
+var Test = require('./modules/test');
+
+new Test();

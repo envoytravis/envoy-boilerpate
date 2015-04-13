@@ -13,6 +13,11 @@ module.exports = {
     resolve: {
         extensions: ['', '.js', '.jsx']
     },
+    module: {
+        loaders: [
+            {test: /\.js$/, exclude: /node_modules/, loaders: ['babel']},
+        ]
+    },
     plugins: [
         new webpack.ProvidePlugin({
             Velocity: 'velocity-animate',
