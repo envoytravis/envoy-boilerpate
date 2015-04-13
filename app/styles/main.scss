@@ -1,8 +1,44 @@
-.test {
-    color: blue;
+////////////////////////////////
+// CSS Reset
+@import "node-reset-scss/scss/reset";
 
-    .test__child {
-        color: red;
-        transform: translateX(100%);
-    }
-}
+
+////////////////////////////////
+// SASS Helpers
+@import "helpers/functions";
+
+
+////////////////////////////////
+// Base
+@import "base/settings";
+@import "base/colors";
+
+
+////////////////////////////////
+// Helpers
+@import "helpers/mixins";
+@import "helpers/z-index";
+@import "helpers/animations";
+@import "helpers/responsive";
+@import "helpers/grid";
+@import "helpers/classes";
+@import "helpers/fonts";
+
+
+////////////////////////////////
+// Components
+@import "components/buttons";
+@import "components/icons";
+
+
+////////////////////////////////
+// Modules
+//@import "modules/";
+
+
+////////////////////////////////
+// General
+@import "partials/general";
+@import "partials/typography";
+@import "partials/header";
+@import "partials/footer";

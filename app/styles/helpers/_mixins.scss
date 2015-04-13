@@ -1,0 +1,49 @@
+// Aspect ratio mixin. Great for responsive grids, or videos.
+// 
+// $ratio - Ratio the element needs to maintain.
+// $selector - Selector that needs the ratio.
+// 
+// Examples
+// 
+//   // A 16:9 ratio would look like this:
+//   .element {
+//      @include maintain-ratio(16 9);
+//   }
+@mixin aspect-ratio($ratio: 1 1, $selector: ".content") {
+
+    $width: nth($ratio, 1);
+    $height: nth($ratio, 2);
+
+    position: relative;
+    
+    &:before {
+        content: "";
+        display: block;
+        width: 100%;
+        padding-top: ($height / $width) * 100%;
+    }
+
+    > #{$selector} {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+    }
+}
+
+// keep br tag from breaking and replace with space
+%stop-br {
+    content: "";
+    &:after {
+        content: "\00a0";
+    }
+}
+@mixin stop-br() {
+    br {
+        content: "";
+        &:after {
+            content: "\00a0";
+        }
+    }
+}

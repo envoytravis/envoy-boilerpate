@@ -1,0 +1,25 @@
+////////////////////////////////
+// Cascade Animation Mixin
+// *Relies on "is-list" function
+@mixin cascade($selectors, $amount:50, $reverse:false, $initial:0) {
+    
+    $is-list: is-list($selectors);
+    $length: if($is-list, length($selectors), $selectors);
+    
+    @for $i from 1 through $length {
+      
+        $index: if($reverse, $length + 1 - $i, $i);
+        $delay: $i * $amount;
+        
+        @if $is-list {
+          #{nth($selectors, $index)} {
+            transition-delay: $delay + $initial + ms;
+          }
+        }
+        @else {
+          &:nth-of-type(#{$index}) {
+            transition-delay: $delay + $initial + ms;
+          } 
+        }
+    }
+}

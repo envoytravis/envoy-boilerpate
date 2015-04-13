@@ -1,0 +1,78 @@
+////////////////////////////////
+// Grid Helpers
+@mixin row( $width: $row_width, $padding: $col_padding, $margin: $row_margin ) {
+    max-width: $width;
+    width: 100%;
+    margin: $margin;
+    padding: $padding;
+    @extend %clearfix;
+}
+
+@mixin col( $colspan: $col_span, $total_cols: $col_total, $padding: $col_padding ) {
+    width: ($colspan * (100 / $total_cols)) + 0%;
+    padding: $padding;
+}
+
+@mixin push( $colspan: $col_span, $total_cols: $col_total ) {
+    margin-left: ($colspan * (100 / $total_cols)) + 0%;
+}
+
+@mixin pull( $colspan: $col_span, $total_cols: $col_total ) {
+    margin-left: -($colspan * (100 / $total_cols))*2 + 0%;
+}
+
+// Block Grid
+// * creates a block grid that evenly separates content
+// * use display: inline-block with font-size: 0 or float: left
+@mixin grid($per-row, $margin) {
+    width: ((100% - (($per-row - 1) * $margin)) / $per-row);
+
+    &:nth-child(n) {
+        margin-bottom: $margin;
+        margin-right: $margin;
+    }
+
+    &:nth-child(#{$per-row}n) {
+        margin-right: 0;
+        margin-bottom: 0;
+    }
+}
+
+// Create Helper Placeholder Grid Classes
+// * Optional placeholder or actual
+// class creation
+%inline-block-grid {
+    display: inline-block;
+}
+
+@mixin placeholder-grid($period:false) {
+  
+    $period: if($period, '.', '%');
+
+    @for $i from 1 through $col_total {
+
+        #{$period}col-#{$i} {
+            width: 100%/$i;
+            @extend %inline-block-grid
+        }
+    }
+}
+@include placeholder-grid();
+
+
+////////////////////////////////
+// Grid Classes
+.contain {
+    max-width: $row_width;
+    margin: 0 auto;
+}
+
+.inline {
+    font-size: 0;
+
+    section {
+        display: inline-block;
+        vertical-align: top;
+        font-size: $base-font-size;
+    }
+}

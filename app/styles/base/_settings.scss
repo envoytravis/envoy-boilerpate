@@ -1,0 +1,44 @@
+////////////////////////////////
+// Grid Helpers
+$row_width: rem(1140);
+$row_margin: 0 auto;
+$col_total: 4;
+$col_span: 1;
+$col_padding: 0;
+
+
+////////////////////////////////
+// Responsive
+$breakpoints: (
+    ("mobile", "min-width: 767px"),
+    ("mobile-max", "max-width: 767px"),
+
+    ("tablet", "min-width: 776px"),
+    ("tablet-max", "max-width: 992px"),
+    ("tablet-landscape", ("max-width: 992px", "orientation: landscape")),
+
+    ("desktop", ("min-width: 1085px")),
+    ("desktop-max", ("max-width: 1085px")),
+
+    ("laptop", ("min-width: 992px", "max-height: 985px")),
+);
+
+
+////////////////////////////////
+// Typography
+$font-faces: (
+    ("miller", "millertextroman-webfont"),
+    ("miller-display", "MillerDisplay-Roman"),
+    ("miller-display-italic", "MillerDisplay-Italic"),
+    
+    ("benton", "bentonsans-regular-opentype"),
+    ("benton-xlight", "BentonSans-ExtraLight"),
+    ("benton-light", "BentonSans-Light"),
+    ("benton-med", "bentonsans-medium-opentype-webfont"),
+    ("benton-bold", "bento-sans-bold-webfont"),
+    ("benton-black", "bentonsans-black-1-opentype"),
+    
+    ("icons", "icons")
+);
+$font-path: '../fonts/';
+$base-font-size: 16;
