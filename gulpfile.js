@@ -77,12 +77,12 @@ gulp.task('scripts:build', function () {
 ////////////////////////////////
 // Handle HTML
 gulp.task('html', function() {
-    gulp.src(['app/**/*.html', '!app/partials/**/*.html'])
+    gulp.src(['app/**/*.html', '!app/views/**/*.html'])
         .pipe(swig({
             setup: function (swig) {
                 swig.setDefaults({
                 cache: false,
-                    loader: swig.loaders.fs(__dirname + '/app/partials/')
+                    loader: swig.loaders.fs(__dirname + '/app/views/')
                 });
             }
         }))
