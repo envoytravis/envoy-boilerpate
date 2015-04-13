@@ -8,7 +8,7 @@ var gulp = require('gulp'),
     swig = require('gulp-swig'),
     browserSync = require('browser-sync'),
     reload = browserSync.reload,
-    path = require('path');
+    del = require('del');
 
 
 ////////////////////////////////
@@ -48,7 +48,7 @@ gulp.task('styles:build', ['styles'], function () {
 
     var csso = require('gulp-csso');
 
-    return gulp.src('.tmp/styles/*.css')
+    return gulp.src(buildDir + '/styles/**/*.css')
         .pipe(csso(true))
         .pipe(gulp.dest(buildDir + '/styles'));
 });
@@ -67,34 +67,95 @@ gulp.task('scripts', function () {
 
 gulp.task('scripts-complete', ['scripts'], reload);
 
+// should modify webpack and use loader to minify
+gulp.task('scripts:build', function () {
+
+    return gulp.src(buildDir + '/scripts/**/*.js')
+        .pipe(gulp.dest(buildDir + '/scripts'));
+});
 
 ////////////////////////////////
 // Handle HTML
 gulp.task('html', function() {
-    gulp.src([
-        path.join('app/**/*.html')
-    ])
-    .pipe(swig({
-        setup: function (swig) {
-            swig.setDefaults({
-            cache: false,
-                loader: swig.loaders.fs(__dirname + '/app/partials/')
-            });
-        }
-    }))
-    .pipe(gulp.dest(buildDir))
-    .pipe(reload({stream:true}));
+    gulp.src(['app/**/*.html', '!app/partials/**/*.html'])
+        .pipe(swig({
+            setup: function (swig) {
+                swig.setDefaults({
+                cache: false,
+                    loader: swig.loaders.fs(__dirname + '/app/partials/')
+                });
+            }
+        }))
+        .pipe(gulp.dest(buildDir))
+        .pipe(reload({stream:true}));
 });
 
 
 ////////////////////////////////
-// Serve
+// Lint HTML (aria, standards)
+gulp.task('html:lint', function () {
+
+    var arialinter = require('gulp-arialinter'),
+        w3cjs = require('gulp-w3cjs');
+
+    return gulp.src(buildDir + '/**/*.html')
+        .pipe(arialinter({
+            level: 'AA'
+        }))
+        .pipe(w3cjs({
+            
+        }));
+});
+
+
+//////////////////////
+// Optimize & Pipe Images
+gulp.task('images', function () {
+
+    var imgDir = buildDir + '/images';
+
+    return gulp.src('app/images/**/*')
+        // .pipe(newer(imgDst))
+        // .pipe(imageOptimization({
+        //     optimizationLevel: 5,
+        //     progressive: true,
+        //     interlaced: false
+        // }))
+        .pipe(gulp.dest(imgDir));
+});
+
+
+/////////////////////
+// Pipe Fonts
+gulp.task('fonts', function () {
+    return gulp.src('app/fonts/**/*')
+        .pipe(gulp.dest(buildDir + '/fonts'));
+});
+
+
+////////////////////////////////
+// Include .htaccess, favicons, etc. in build folder
+gulp.task('extras', function () {
+    return gulp.src(['app/*.*', '!app/*.html'], {dot: true})
+        .pipe(gulp.dest(buildDir));
+});
+
+
+////////////////////////////////
+// Start local server
 gulp.task('serve', ['styles', 'scripts'], function () {
     browserSync({
         server: './dist',
         port: 8000,
         open: false
     });
+});
+
+
+////////////////////////////////
+// Clean build folder
+gulp.task('clean', function () {
+    del(buildDir);
 });
 
 
@@ -108,3 +169,4 @@ gulp.task('watch', ['serve'], function () {
 
 
 gulp.task('default', ['watch']);
+gulp.task('build', ['html', 'styles:build', 'scripts', 'images', 'fonts', 'extras']);
